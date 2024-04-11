@@ -3,7 +3,7 @@ name: gh-pages
 on:
   push:
     branches:
-      - main # chỉ triển khai khi có commit vào nhánh main
+      - master
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Thay ACCESS_TOKEN bằng secret của bạn
-        BRANCH: gh-pages # Nhánh mà bạn muốn triển khai đến
-        FOLDER: build/wwwroot # Thư mục cần triển khai
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: deployment
+        FOLDER: build/wwwroot
         SINGLE_COMMIT: true
