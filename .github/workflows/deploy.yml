@@ -1,0 +1,27 @@
+name: gh-pages
+
+on:
+  push:
+    branches:
+      - main # chỉ triển khai khi có commit vào nhánh main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.204
+    - name: Publish with dotnet8
+      run: dotnet publish --configuration Release --output build
+    - name: Deploy to Github Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Thay ACCESS_TOKEN bằng secret của bạn
+        BRANCH: gh-pages # Nhánh mà bạn muốn triển khai đến
+        FOLDER: build/wwwroot # Thư mục cần triển khai
+        SINGLE_COMMIT: true
